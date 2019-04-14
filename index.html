@@ -1,0 +1,25 @@
+<script>
+  /*送信ボタンクリックイベント*/
+  function onclick_button() {
+    var name = document.getElementById('name_txt').value;
+    if(name != ""){
+      document.cookie = 'name='+name;      //クッキー情報を格納
+      document.location.href = 'public/chat.html';  //画面遷移
+    }else {
+      alert('名前を入力してください');
+    }
+};
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>チャットログイン</title>
+</head>
+<body>
+  <h3>チャット</h3>
+  <p>ユーザー情報入力画面</p>
+  名前：<input id="name_txt" type="text"><br />
+  <button id="send_button" type="button" onclick="onclick_button();">送信</button>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>チャットルーム</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="card.css">
+  </head>
+
+  <body>
+    <!--コメント送信-->
+    <div id="comment">
+        <p id="name_print"></p>
+        <textarea id="comment_area" onkeyup="sendMessage(event)" placeholder="コメント" maxlength="30"></textarea>
+    </div>
+
+    <!--コメント書き込み-->
+    <div id="chat"></div>
+
+  </body>
+</html>
+
+<script type="text/javascript" src="comment.js"></script>
