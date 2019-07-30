@@ -1,4 +1,5 @@
 <?php
+
 namespace GSoares\RatchetChat;
 
 use Ratchet\MessageComponentInterface;
@@ -23,17 +24,22 @@ class Chat implements MessageComponentInterface
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        $this->writing_csv($msg);
+        $user_json = json_decode($msg, true);
 
         $numRecv = count($this->clients) - 1;
 
         echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
 
+        $user_json['name'] = htmlspecialchars($user_json['name'], ENT_QUOTES, "UTF-8");
+        $user_json['message'] = htmlspecialchars($user_json['message'], ENT_QUOTES, "UTF-8");
+
+        $this->writing_csv($user_json);
+
         foreach ($this->clients as $client) {
             if ($from !== $client) {
                 // 送信者は受信者ではなく、接続されている各クライアントに送信します
-                $client->send($msg);
+                $client->send(json_encode($user_json));
             }
         }
     }
@@ -54,18 +60,9 @@ class Chat implements MessageComponentInterface
     }
 
     //ファイル書き込み
-    private function writing_csv($message){
-      $message = str_replace("\n", "", $message);
+    private function writing_csv($csv_json)
+    {
+        
 
-      $fp = fopen('C:\xampp\htdocs\chat\data\data.csv', 'a+b');
-
-      if($fp){
-        fputcsv($fp, explode(',', $message));
-        fclose($fp);
-
-        echo "Success write file\n";
-      }else{
-        echo "Error open file\n";
-      }
     }
 }

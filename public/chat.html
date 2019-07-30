@@ -10,13 +10,12 @@
     <!--コメント送信-->
     <div id="comment">
         <p id="name_print"></p>
-        <textarea id="comment_area" onkeyup="sendMessage(event)" placeholder="コメント" maxlength="30"></textarea>
+        <textarea id="comment_area" onkeyup="sendMessage(event)" placeholder="コメント" maxlength="255"></textarea>
     </div>
 
     <!--コメント書き込み-->
     <div id="chat"></div>
 
+    <script type="text/javascript" src="comment.js"></script>
   </body>
 </html>
-
-<script type="text/javascript" src="comment.js"></script>
