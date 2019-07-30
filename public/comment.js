@@ -35,7 +35,7 @@ function sendMessage(e) {   //キーコードを取得
     var content = document.getElementById('chat').innerHTML;
 
     //JSONデータを作成
-    user_json.message = escape(document.getElementById('comment_area').value);
+    user_json.message = document.getElementById('comment_area').value;
 
     if (user_json.message.length === 0) {
         return;
@@ -54,8 +54,8 @@ function sendMessage(e) {   //キーコードを取得
     document.getElementById('comment_area').value = '';
 };
 
-//相手からのメッセージをHTMLに書き込み
-function receiveMessage(e) {
+//相手からメッセージが送られてきたときに発火するイベント
+conn.onmessage = function (e) {
     console.log(e.data);
 
     var content = document.getElementById('chat').innerHTML;
@@ -70,22 +70,6 @@ function receiveMessage(e) {
         + '<div class=\"bms_clear\"></div>'
         + content;
 };
-
-//相手からメッセージが送られてきたときに発火するイベント
-conn.onmessage = function (e) {
-    receiveMessage(e);
-};
-
-//エスケープ処理関数
-function escape(str) {
-    str = str.replace(/&/g, '&amp;');
-    str = str.replace(/</g, '&lt;');
-    str = str.replace(/>/g, '&gt;');
-    str = str.replace(/"/g, '&quot;');
-    str = str.replace(/'/g, '&#39;');
-    str = str.replace(/,/g, '&#x2c;');
-    return str;
-}
 
 function loadCSV(targetFile) {
 
